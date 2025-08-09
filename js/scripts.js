@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: 'Уютный коттедж',
             description: 'Просторный дом с приватным двором и бассейном. Имеет 4 спальни, 3 ванные комнаты, гараж на две машины и современную кухню.',
             price: '$2,200,000',
-            specialPrice: 'С Тимуром договорица, базар-вокзал'
+            specialPrice: '$2,000,000'
         }
     ];
 
@@ -21,18 +21,25 @@ document.addEventListener('DOMContentLoaded', function() {
     let propertiesHTML = '';
 
     properties.forEach(property => {
+        let priceHTML = '';
+        if (property.specialPrice) {
+            priceHTML = `
+                <div class="price">
+                    <span class="original-price">${property.price}</span>
+                    <span class="special-price">${property.specialPrice}</span>
+                </div>
+            `;
+        } else {
+            priceHTML = `<div class="price">${property.price}</div>`;
+        }
+
         propertiesHTML += `
             <div class="property">
                 <img src="${property.image}" alt="${property.alt}">
                 <div class="details">
                     <h2>${property.title}</h2>
                     <p>${property.description}</p>
-                    <p>Цена: ${property.price}</p>
-        `;
-        if (property.specialPrice) {
-            propertiesHTML += `<p>Цена: ${property.specialPrice}</p>`;
-        }
-        propertiesHTML += `
+                    ${priceHTML}
                 </div>
             </div>
         `;
